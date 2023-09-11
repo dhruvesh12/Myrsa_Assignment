@@ -1,0 +1,54 @@
+<div  class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" [formGroup]="AddEmp">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationCustom01">First name</label>
+                <input  formControlName="FirstName"  type="text" class="{{submitted && AddEmp.controls['FirstName'].errors ? 'form-control is-invalid' : 'form-control'}}"  id="validationCustom01" placeholder="First name" value="Mark" required>
+                <div *ngIf="submitted && AddEmp.controls['FirstName'].errors" class="text-danger" >
+                  Required Field
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Last name</label>
+                <input formControlName="LastName" type="text" class="{{submitted && AddEmp.controls['LastName'].errors ? 'form-control is-invalid' : 'form-control'}}" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                <div *ngIf="submitted && AddEmp.controls['LastName'].errors" class="text-danger">
+                    Required Field
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Age</label>
+                <input min="1" max="100" formControlName="Age" type="number" class="{{submitted && AddEmp.controls['Age'].errors ? 'form-control is-invalid' : 'form-control'}}" id="validationCustom02" placeholder="Age" value="Otto" required>
+                <div *ngIf="submitted && AddEmp.controls['Age'].errors && AddEmp.controls['Age'].value < 100" class="text-danger">
+                    Required Field
+                </div>
+                <div *ngIf="submitted && AddEmp.controls['Age'].value > 100" class="text-danger">
+                  Age Should be Between 1 To 100
+              </div>
+              </div>
+              
+            </div>
+            
+            
+            <!-- <button (click)="Submit()" class="btn btn-primary" type="submit">Submit form</button> -->
+          </form>
+      </div>
+      <div *ngIf="alertActive" class="alert alert-primary" role="alert">
+        Sucessfully Added Employee
+      </div>
+      <div class="modal-footer">
+        
+        <button (click)="submitted = false" type="button" class="btn btn-secondary" #search data-dismiss="modal">Close</button>
+        <button (click)="Submit()" type="button" class="btn btn-primary"   >Save changes</button>
+      </div>
+    </div>
+  </div>
+  

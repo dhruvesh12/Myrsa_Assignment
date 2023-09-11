@@ -1,0 +1,164 @@
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Age</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <thead *ngIf="service.AllEmployeeData.length ==0">
+      
+      Employee Data Not Added Yet</thead>
+    <tbody *ngFor="let i of service.AllEmployeeData; index as j">
+      <tr>
+        <th scope="row">{{j+1}}</th>
+        <td>{{i.FName}}</td>
+        <td>{{i.LName}}</td>
+        <td>{{i.Age}}</td>
+        <td>
+          <div class="btn-group">
+            <button (click)="getEmployeeById(i)" type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#EditModel">Edit</button>
+            <button (click)="getEmployeeById(i)" type="button" class="btn btn-info mr-2" data-toggle="modal" data-target="#viewModel">View</button>
+            <button (click)="EmployeeId=i.id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">Delete</button>
+          </div>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+
+
+  
+  
+  <!-- View Modal -->
+  <div class="modal fade" id="viewModel" tabindex="-1" role="dialog" aria-labelledby="viewModel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewModel">View Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form >
+            <fieldset disabled>
+              <div class="form-group">
+                <label for="disabledTextInput">First Name</label>
+                <input type="text" id="disabledTextInput" class="form-control" [value]="EmployeeForm.get('FName')?.value">
+              </div>
+
+              <div class="form-group">
+                <label for="disabledTextInput">Last Name</label>
+                <input type="text" id="disabledTextInput" class="form-control" [value]="EmployeeForm.get('LName')?.value">
+              </div>
+
+              <div class="form-group">
+                <label for="disabledTextInput">Age</label>
+                <input type="text" id="disabledTextInput" class="form-control" [value]="EmployeeForm.get('Age')?.value">
+              </div>
+              
+              
+             
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="EditModel" tabindex="-1" role="dialog" aria-labelledby="EditModel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="EditModel">Edit Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="EmployeeForm">
+            
+              <div class="form-group">
+                <label for="disabledTextInput">First Name</label>
+                <input formControlName="FName" class="{{submitted && EmployeeForm.controls['FName'].errors ? 'form-control is-invalid' : 'form-control'}}" type="text" id="disabledTextInput" class="form-control" >
+
+                <div *ngIf="submitted && EmployeeForm.controls['FName'].errors" class="text-danger" >
+                  Required Field
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+                <label for="disabledTextInput">Last Name</label>
+                <input formControlName="LName" class="{{submitted && EmployeeForm.controls['LName'].errors ? 'form-control is-invalid' : 'form-control'}}" type="text" id="disabledTextInput" class="form-control" >
+
+                <div *ngIf="submitted && EmployeeForm.controls['LName'].errors" class="text-danger" >
+                  Required Field
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="disabledTextInput">Age</label>
+                <input formControlName="Age" class="{{submitted && EmployeeForm.controls['Age'].errors ? 'form-control is-invalid' : 'form-control'}}" type="number" id="disabledTextInput" class="form-control" >
+
+                <div *ngIf="submitted && EmployeeForm.controls['Age'].errors" class="text-danger" >
+                  Required Field
+                </div>
+              </div>
+              
+              
+             
+            
+          </form>
+          <div *ngIf="alertActive" class="alert alert-primary" role="alert">
+            Sucessfully Updated Employee
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="sub"  type="button" class="btn btn-secondary" id="sub" data-dismiss="modal">Close</button>
+          <button (click)="updateEmployee()" type="button" class="btn btn-primary"   >Save changes</button>
+          
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModel">Are You sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        This Will Delete Employee from list
+       
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteEmployee()" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

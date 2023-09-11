@@ -1,0 +1,68 @@
+
+<div class="float-left mt-2">
+  <div class="input-group mb-3">
+    <form class="needs-validation" [formGroup]="searchEmployeeForm">
+    <input formControlName="FName" class="{{submitted && searchEmployeeForm.controls['FName'].errors ? 'form-control is-invalid' : 'form-control'}}" type="text" class="form-control" placeholder="Employee Name" aria-label="Employee Name" aria-describedby="basic-addon2">
+    
+  
+  </form>
+    <div class="input-group-append">
+      <button (click)="searchByName()" class="btn btn-outline-primary" type="button">Search</button>
+    </div>
+    <div class="input-group-append">
+      <button (click)="service.getAllEmployee(); searchEmployeeForm.reset(); submitted=false"  class="btn btn-outline-secondary" type="button">Reset</button>
+    </div>
+  
+  </div>
+</div>
+
+<div class="float-right mt-2 mr-2">
+  <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add Employee
+  </button>
+</div>
+
+<div class="float-right mt-2 mr-2">
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAllModel">
+  Remove All Employee
+  </button>
+</div><br>
+<!-- Button trigger modal -->
+
+
+
+<app-employee-list></app-employee-list>
+
+<!--Add Modal -->
+<div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <app-add-employee ></app-add-employee>
+  
+</div>
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteAllModel" tabindex="-1" role="dialog" aria-labelledby="deleteAllModel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModel">Are You sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        This Will Delete All Employee from list
+       
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteAllEmployee()" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
